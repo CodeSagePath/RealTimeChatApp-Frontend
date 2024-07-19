@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ChatRoom from '../components/ChatRoom';
 import PrivateRoute from '../components/PrivateRoute';
 
 const ChatPage = () => {
-  const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const [joined, setJoined] = useState(false);
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
 
   const joinChat = () => {
     if (username && room) {
@@ -19,12 +26,6 @@ const ChatPage = () => {
         {!joined ? (
           <div>
             <h1>Join a Chat Room</h1>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
             <input
               type="text"
               placeholder="Room"

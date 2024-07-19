@@ -14,8 +14,9 @@ const Login = ({ setIsAuthenticated }) => {
         identifier,
         password,
       });
-      const { jwt } = response.data;
+      const { jwt, user } = response.data;
       localStorage.setItem('jwt', jwt);
+      localStorage.setItem('username', user.username);
       setIsAuthenticated(true);
       router.push('/chat');
     } catch (error) {
