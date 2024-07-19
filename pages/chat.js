@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import ChatRoom from '../components/ChatRoom';
 import PrivateRoute from '../components/PrivateRoute';
 
@@ -6,18 +7,29 @@ const ChatPage = () => {
   const [room, setRoom] = useState('');
   const [joined, setJoined] = useState(false);
   const [username, setUsername] = useState('');
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
     }
+    // fetchRooms();
   }, []);
 
+  // const fetchRooms = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:1337/api/public-rooms');
+  //     setRooms(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching rooms:', error);
+  //   }
+  // };
+
   const joinChat = () => {
-    if (username && room) {
+    // if (username && room) {
       setJoined(true);
-    }
+    // }
   };
 
   return (
@@ -26,6 +38,21 @@ const ChatPage = () => {
         {!joined ? (
           <div>
             <h1>Join a Chat Room</h1>
+            <div className="mb-4">
+              {/* <h2>Available Rooms:</h2> */}
+              <ul>
+                {rooms.map((room, index) => (
+                  <li key={index}>
+                    <button
+                      onClick={() => setRoom(room.name)}
+                      className="text-blue-500 underline"
+                    >
+                      {room.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <input
               type="text"
               placeholder="Room"
