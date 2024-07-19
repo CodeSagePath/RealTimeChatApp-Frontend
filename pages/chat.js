@@ -14,17 +14,7 @@ const ChatPage = () => {
     if (storedUsername) {
       setUsername(storedUsername);
     }
-    // fetchRooms();
   }, []);
-
-  // const fetchRooms = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:1337/api/public-rooms');
-  //     setRooms(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching rooms:', error);
-  //   }
-  // };
 
   const joinChat = () => {
     // if (username && room) {
